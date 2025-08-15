@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Alquiler</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div id="formulario-alquiler" class="container">
+        <div class="header-info">
+            <img src="logo.jpg" alt="Logo de la Inmobiliaria" width="150">
+            <h1>Tavárez Hernández Soluciones Inmobiliarias, S.R.L.</h1>
+            <p>RNC 133168693</p>
+            <p>Calle José Desiderio Valverde núm. 28, Torre View Tower, La Esperilla, Distrito Nacional</p>
+            <p>Tel.: 829-380-9888 | Correo: ironelyh18@gmail.com</p>
+        </div>
+
+        <h2>SOLICITUD DE ALQUILER</h2>
+
+        <form id="rental-form">
+            <div class="form-section">
+                <div class="form-group full-width">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Datos de los Inquilinos</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="inquilino_nombre1">Nombre Inquilino</label>
+                        <input type="text" id="inquilino_nombre1" name="inquilino_nombre1">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquilino_cedula1">Cédula núm.</label>
+                        <input type="text" id="inquilino_cedula1" name="inquilino_cedula1">
+                    </div>
+                     <div class="form-group">
+                        <label for="inquilino_nombre2">Nombre (otro inquilino, si aplica)</label>
+                        <input type="text" id="inquilino_nombre2" name="inquilino_nombre2">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquilino_cedula2">Cédula núm.</label>
+                        <input type="text" id="inquilino_cedula2" name="inquilino_cedula2">
+                    </div>
+                </div>
+                 <div class="form-grid">
+                    <div class="form-group">
+                        <label>Teléfonos Inquilino</label>
+                        <input type="text" placeholder="Residencial">
+                        <input type="text" placeholder="Trabajo" class="input-margin">
+                        <input type="text" placeholder="Celular" class="input-margin">
+                    </div>
+                     <div class="form-group full-width">
+                        <label for="direccion_solicitante">Dirección Solicitante</label>
+                        <input type="text" id="direccion_solicitante" name="direccion_solicitante">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Datos del Garante</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="garante_nombre">Nombre del Garante</label>
+                        <input type="text" id="garante_nombre" name="garante_nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="garante_cedula">Cédula núm.</label>
+                        <input type="text" id="garante_cedula" name="garante_cedula">
+                    </div>
+                </div>
+                <div class="form-grid">
+                     <div class="form-group">
+                        <br>
+                        <label>Teléfonos Garante</label>
+                        <input type="text" placeholder="Residencial">
+                        <input type="text" placeholder="Trabajo" class="input-margin">
+                        <input type="text" placeholder="Celular" class="input-margin">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="direccion_garante">Dirección Garante</label>
+                        <input type="text" id="direccion_garante" name="direccion_garante">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                 <p class="authorization-text">
+                    Los firmantes autorizan a Tavárez Hernández Soluciones Inmobiliaria SRL a través de sus representantes, a efectuar las investigaciones necesarias respecto a su historial crediticio...
+                </p>
+                 <p class="authorization-text">
+                    La suscrita, asociada a Tavárez Hernández Soluciones Inmobiliaria SRL, se compromete a no divulgar ni hacer uso incorrecto de las informaciones recabadas...
+                </p>
+            </div>
+            
+            <div class="signatures">
+                <div class="signature-box">
+                    Solicitantes
+                </div>
+                <div class="signature-box">
+                    Garante
+                </div>
+                 <div class="signature-box signature-full">
+                    Asociado
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn" onclick="generarPDF()">Descargar para Firmar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function generarPDF() {
+            const boton = document.querySelector('.btn');
+            boton.style.display = 'none';
+            
+            window.scrollTo(0, 0);
+
+            html2canvas(document.getElementById('formulario-alquiler'), {
+                scale: 2 // Aumenta la resolución de la imagen
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const ratio = canvasWidth / canvasHeight;
+                let imgHeight = pdfWidth / ratio;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdf.internal.pageSize.getHeight();
+
+                while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                    heightLeft -= pdf.internal.pageSize.getHeight();
+                }
+
+                pdf.save('Formulario_de_Alquiler.pdf');
+
+                boton.style.display = 'block';
+            });
+        }
+    </script>
+
+</body>
+</html>

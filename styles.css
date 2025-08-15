@@ -1,0 +1,153 @@
+/* Estilos para el formulario */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    color: #0056b3;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.header-info {
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.header-info p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.form-section {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 25px;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section h3 {
+    color: #007BFF;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="text"], 
+input[type="date"], 
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="text"]:focus, 
+input[type="date"]:focus, 
+input[type="email"]:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.input-margin {
+    margin-top: 8px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.authorization-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 15px;
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.signature-box {
+    border-top: 1px solid #000;
+    padding-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.signature-full {
+    grid-column: 1 / -1;
+    max-width: 250px;
+    margin: 20px auto 0;
+}
